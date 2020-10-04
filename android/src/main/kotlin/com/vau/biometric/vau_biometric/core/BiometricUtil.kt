@@ -7,10 +7,8 @@ import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STR
 import android.hardware.biometrics.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import android.os.Build
 import android.provider.Settings
-import androidx.annotation.RequiresApi
 import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricPrompt
-import androidx.core.app.ActivityCompat.startActivityForResult
+
 import com.vau.biometric.vau_biometric.Injector
 import com.vau.biometric.vau_biometric.model.AuthStatus
 import io.flutter.BuildConfig
@@ -24,7 +22,6 @@ class BiometricUtil {
         when(manager.canAuthenticate()) {
             BiometricManager.BIOMETRIC_SUCCESS -> {
                 // do something if success
-
                 return AuthStatus.AuthSuccess
             }
             BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {

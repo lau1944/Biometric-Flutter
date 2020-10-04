@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 const int BIOMETRIC_STRONG = 15;
@@ -23,6 +24,11 @@ enum BioStatus {
 
 /// Biometric process
 class VauBiometric {
+
+  static BioCallBack success;
+  static BioCallBack error;
+  static BioCallBack fail;
+
   /// channel id
   static const MethodChannel _channel =
       const MethodChannel('vau_biometric');
@@ -34,15 +40,38 @@ class VauBiometric {
   /// [successCallBack] callback after auth process if success
   /// [errorCallBack] callback after auth process if error
   /// [failCallBack] callback after auth process if fail
-  static Future<BioStatus> biometriLogin(int type, BioCallBack successCallBack,
-    BioCallBack errorCallBack, BioCallBack failCallBack) async {
-    return await _channel.invokeMethod('beginBiometricLogin');
+  static Future<BioStatus> biometriLogin({int type,
+    @required String title, String subtitle, String negativeButtonText,
+    BioCallBack successCallBack, BioCallBack errorCallBack, BioCallBack failCallBack}) async {
+      success = successCallBack;
+      error = errorCallBack;
+      fail = failCallBack;
+      return await _channel.invokeMethod('beginBiometricLogin', {
+        'type' : type,
+        'title' : title ?? '',
+        'subtitle' : subtitle ?? '',
+        'negativeButtonText' : negativeButtonText ?? '~'
+      });
   }
 
-  static void getAuthResult() {
+  static void setBiometricHandler() {
     _channel.setMethodCallHandler((call) {
-      switch(call.method == 'afterBiometricProcess') {
-        
+      if (call.method == 'biometricAuthResult') {
+        Map result = call.arguments;
+        switch(result['result']) {
+          case 'success' : {
+            success(0, 'success');
+            break;
+          }
+          case 'error' : {
+            error(result['errorCode'], result['errorMessage']);
+            break;
+          }
+          case 'fail' : {
+            fail(1, 'fail');
+            break;
+          }
+        }
       }
       return null;
     });

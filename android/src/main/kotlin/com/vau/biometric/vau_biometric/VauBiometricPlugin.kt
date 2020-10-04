@@ -3,6 +3,7 @@ package com.vau.biometric.vau_biometric
 import android.content.Context
 import android.hardware.biometrics.BiometricManager.Authenticators.BIOMETRIC_STRONG
 import androidx.annotation.NonNull;
+import com.vau.biometric.vau_biometric.core.AuthProcess
 import com.vau.biometric.vau_biometric.core.BiometricUtil
 import com.vau.biometric.vau_biometric.model.AuthStatus
 
@@ -35,6 +36,11 @@ class VauBiometricPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     }
 
     @JvmStatic
+    fun getChannel() : MethodChannel {
+      return channel!!
+    }
+
+    @JvmStatic
     fun setContext(activity: Context) {
       context = activity
     }
@@ -42,9 +48,13 @@ class VauBiometricPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
 
   override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
     if (call.method == "beginBiometricLogin") {
-      var type = call.argument<String>("type")
+      val type: Int? = call.argument<Int>("type")
+      val title: String? = call.argument("title")
+      val subTitle: String? = call.argument("subtitle")
+      val negativeButtonText: String? = call.argument("negativeButtonText")
       when(BiometricUtil.getInstance().checkAuth(context!!)) {
         is AuthStatus.AuthSuccess -> {
+          AuthProcess.startAuthProcess(context!!, type!!, title.toString(), subTitle, negativeButtonText)
           return result.success(hashMapOf(
               "result" to "success"
           ))
