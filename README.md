@@ -1,7 +1,9 @@
 # Biometric Authentication 🔒 🔑 🔓
-This is a biometric authentication flutter plugin for android
+This is a biometric authentication flutter plugin for android 
 
-an implementation of [the newest biometric android library](https://developer.android.com/training/sign-in/biometric-auth#blog-posts).
+[Link](https://pub.dev/packages/vau_biometric) on pub.dev 
+
+An implementation of [the newest biometric android library](https://developer.android.com/training/sign-in/biometric-auth#blog-posts).
 
 ### Sample test on 1+ 6t
 
