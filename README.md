@@ -5,7 +5,7 @@ an implementation of [the newest biometric android library](https://developer.an
 
 ### Sample test on 1+ 6t
 
-[<p align="center">
+<p align="center">
   <img width=255, height=515, src="https://github.com/lau1944/Biometric-Flutter/blob/main/demo.gif" />
 </p>
 
