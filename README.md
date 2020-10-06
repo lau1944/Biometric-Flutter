@@ -1,7 +1,13 @@
 # Biometric Authentication 🔒 🔑 🔓
 This is a biometric authentication flutter plugin for android, an implementation of [the newest biometric android library](https://developer.android.com/training/sign-in/biometric-auth#blog-posts).
 
-## Usage
+### Sample test on 1+ 6t
+
+[<p align="center">
+  <img width=255, height=515, src="https://github.com/lau1944/Biometric-Flutter/blob/main/demo.gif" />
+</p>
+
+## Usage 🖊️
 * `type` type of authenticators
 only 3 types :
 BIOMETRIC_STRONG
@@ -33,7 +39,7 @@ VauBiometric.biometricLogin(type: BIOMETRIC_STRONG,
       });
 ```
 
-## One more important thing
+## One more important thing  🤦‍♂️
 There is one big drawback using this newest biometric library -> It needs a reference of `FragmentActivity` 😫
 
 We would start a `AuthActivity` which extends FragmentActivity after check success 
@@ -42,7 +48,7 @@ If you want a custom view on this activity
 
 create a new layout xml file named `biometric_layout` -> It has to be this name 😁😁😁
 
-### That is It !!! ###
+### That is It !!! 🙃 ###
 
 It is still unstable for now, because it is so hard to test biometric authentication on each android device 🤕
 
