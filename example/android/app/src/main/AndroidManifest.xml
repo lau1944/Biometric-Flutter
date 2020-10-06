@@ -9,6 +9,12 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="vau_biometric_example"
         android:icon="@mipmap/ic_launcher">
+
+        <activity android:name=".ExampleActivity"
+            android:launchMode="singleTop">
+
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
