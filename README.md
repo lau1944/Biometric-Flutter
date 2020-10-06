@@ -1,15 +1,49 @@
-# vau_biometric
+# Biometric Authentication 🔒 🔑 🔓
+This is a biometric authentication flutter plugin for android, an implementation of [the newest biometric android library](https://developer.android.com/training/sign-in/biometric-auth#blog-posts).
 
-A new flutter plugin project.
+## Usage
+* `type` type of authenticators
+only 3 types :
+BIOMETRIC_STRONG
+BIOMETRIC_WEAK
+DEVICE_CREDENTIAL
+* `title` title on authentication process
+* `subtitle` subtitle on authentication process, default to ''
+* `negativeButtonText` similar to use other authentiation method, default to ''
 
-## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+After called this method, platform would check authentication requirement and return `BioStatus` to indicator if success or not.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 
+if `success`, platform would start authentication immediately.
+
+
+`BioCallBack` is a callback function the result of authentication itself, if the checking status is not `success`, callback would not be called.
+```
+VauBiometric.biometricLogin(type: BIOMETRIC_STRONG,
+      title: 'Login', subtitle: 'click to login in', negativeButtonText: 'no',
+      successCallBack: (code, message) {
+        print(message);
+      },
+      errorCallBack: (code, message) {
+        print(message);
+      },
+      failCallBack: (code, message) {
+        print(message);
+      });
+```
+
+## One more important thing
+There is one big drawback using this newest biometric library -> It needs a reference of `FragmentActivity` 😫
+
+We would start a `AuthActivity` which extends FragmentActivity after check success 
+
+If you want a custom view on this activity 
+
+create a new layout xml file named `biometric_layout` -> It has to be this name 😁😁😁
+
+### That is It !!! ###
+
+It is still unstable for now, because it is so hard to test biometric authentication on each android device 🤕
+
+so if you have any problem using this, please put on issues 
